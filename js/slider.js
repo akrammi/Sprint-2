@@ -65,15 +65,23 @@ function initializeSlider(container) {
         else if (e.key === 'ArrowLeft') (isRTL ? nextSlide() : prevSlide());
     }
 
-    document.addEventListener('keydown', handleKeyboardControls);
+    let isMouseInside = false;
 
-    let autoSlideInterval = setInterval(nextSlide, 3000);
-
-    sliderContainer.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
+    sliderContainer.addEventListener('mouseenter', () => {
+        isMouseInside = true;
+        clearInterval(autoSlideInterval);
+    });
 
     sliderContainer.addEventListener('mouseleave', () => {
+        isMouseInside = false;
         autoSlideInterval = setInterval(nextSlide, 3000);
     });
+
+    document.addEventListener('keydown', (e) => {
+        if (isMouseInside) handleKeyboardControls(e);
+    });
+
+    let autoSlideInterval = setInterval(nextSlide, 3000);
 
     showSlide(currentIndex, false);
 }
