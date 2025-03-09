@@ -15,3 +15,9 @@ window.addEventListener('click', (e) => {
         sideMenu.classList.remove('open');
     }
 });
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        sideMenu.classList.remove('open');
+    }
+});
